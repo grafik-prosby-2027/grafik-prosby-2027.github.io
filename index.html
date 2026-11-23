@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Grafik prośby 2027</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="ikona-192.png">
+<link rel="apple-touch-icon" href="ikona-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Grafik prośby 2027">
+<meta name="theme-color" content="#2457c5">
+<style>
+:root{
+  --bg:#f5f6f8; --card:#fff; --ink:#1c2230; --muted:#667085; --line:#e3e6ec; --accent:#2457c5; --accent-ink:#fff;
+  --d:#dbeafe; --d-ink:#1e3a8a; --n:#312e81; --n-ink:#fff; --w:#e7f6ec; --w-ink:#166534;
+  --u:#fef3c7; --u-ink:#92400e; --o:#fce7f3; --o-ink:#9d174d; --k:#e0f2fe; --k-ink:#075985;
+  --bad:#dc2626; --warn:#f59e0b; --ok:#16a34a; --wkend:#f1f2f6; --hol:#fde2e2;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0f1218; --card:#171b24; --ink:#e7eaf0; --muted:#98a2b3; --line:#2a303c; --accent:#6b93f0; --accent-ink:#0b1020;
+  --d:#1e3a8a; --d-ink:#dbeafe; --n:#4338ca; --n-ink:#fff; --w:#14532d; --w-ink:#dcfce7;
+  --u:#78350f; --u-ink:#fef3c7; --o:#831843; --o-ink:#fce7f3; --k:#0c4a6e; --k-ink:#e0f2fe;
+  --wkend:#1d222d; --hol:#3b1d1d;
+}}
+:root[data-theme="dark"]{
+  --bg:#0f1218; --card:#171b24; --ink:#e7eaf0; --muted:#98a2b3; --line:#2a303c; --accent:#6b93f0; --accent-ink:#0b1020;
+  --d:#1e3a8a; --d-ink:#dbeafe; --n:#4338ca; --n-ink:#fff; --w:#14532d; --w-ink:#dcfce7;
+  --u:#78350f; --u-ink:#fef3c7; --o:#831843; --o-ink:#fce7f3; --k:#0c4a6e; --k-ink:#e0f2fe;
+  --wkend:#1d222d; --hol:#3b1d1d;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.wrap{max-width:1400px;margin:0 auto;padding:16px}
+header.top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:12px}
+header.top h1{font-size:18px;margin:0;flex:1 1 auto}
+.who{color:var(--muted);font-size:13px}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:7px 12px}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.small{padding:4px 9px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:default}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.login{max-width:380px;margin:10vh auto}
+.login h1{font-size:20px;margin:0 0 4px}
+.login p{color:var(--muted);margin:0 0 16px;font-size:14px}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
+input[type=email],input[type=password],textarea,select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.err{color:var(--bad);font-size:14px;min-height:20px;margin-top:8px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.bar select{width:auto}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:12px;overflow-x:auto}
+.tabs button{border:0;background:none;padding:8px 12px;border-bottom:2px solid transparent;color:var(--muted);white-space:nowrap}
+.tabs button.on{color:var(--ink);border-color:var(--accent);font-weight:600}
+.pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:12px;font-weight:600}
+.pill.open{background:var(--w);color:var(--w-ink)} .pill.closed{background:var(--hol);color:var(--bad)}
+.note{color:var(--muted);font-size:13px;margin:8px 0}
+/* kalendarz pracownika */
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.cal .hd{text-align:center;font-size:12px;color:var(--muted);padding-bottom:2px}
+.day{min-height:78px;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:6px;text-align:left;display:flex;flex-direction:column;gap:3px}
+.day.we{background:var(--wkend)} .day.hol{background:var(--hol)}
+.day .num{font-weight:600;font-size:13px}
+.day .lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.day:disabled{cursor:default}
+.day .cm{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{display:inline-block;border-radius:6px;padding:1px 6px;font-size:12px;font-weight:600}
+.v-Dzień{background:var(--d);color:var(--d-ink)} .v-Noc{background:var(--n);color:var(--n-ink)}
+.v-Wolne{background:var(--w);color:var(--w-ink)} .v-Urlop{background:var(--u);color:var(--u-ink)}
+.v-Opieka{background:var(--o);color:var(--o-ink)} .v-K{background:var(--k);color:var(--k-ink)}
+.empty{grid-column:span 1}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0;font-size:12px}
+/* tabela admina */
+.tblwrap{overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--card);max-height:75vh}
+table.g{border-collapse:separate;border-spacing:0;font-size:12px}
+table.g th,table.g td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:0;text-align:center;min-width:30px;height:30px}
+table.g thead th{position:sticky;top:0;background:var(--card);z-index:2;padding:3px 2px;font-weight:600}
+table.g th.name,table.g td.name{position:sticky;left:0;background:var(--card);z-index:1;text-align:left;padding:0 8px;min-width:150px;white-space:nowrap}
+table.g thead th.name{z-index:3}
+table.g th.we,table.g td.we{background:var(--wkend)} table.g th.hol,table.g td.hol{background:var(--hol)}
+table.g td.c{position:relative}
+#tblP td.c{cursor:pointer}
+table.g td.c .tag{min-width:22px;padding:2px 3px}
+table.g td.c.err{box-shadow:inset 0 0 0 2px var(--bad)}
+table.g td.c.warn{box-shadow:inset 0 0 0 2px var(--warn)}
+table.g td .dot{position:absolute;top:2px;right:2px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+table.g td.sum{padding:0 5px;color:var(--muted);white-space:nowrap}
+table.g tr.foot td{font-weight:600}
+table.g td.okc{color:var(--ok)} table.g td.badc{color:var(--bad)}
+/* okno wyboru */
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:flex-end;justify-content:center;z-index:50}
+.sheet[hidden]{display:none}
+.sheet .panel{background:var(--card);width:100%;max-width:460px;border-radius:16px 16px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom))}
+@media (min-width:600px){.sheet{align-items:center}.sheet .panel{border-radius:16px}}
+.sheet h3{margin:0 0 4px;font-size:16px}
+.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.choices button{border:2px solid transparent;border-radius:10px;padding:10px 4px;font-weight:600}
+.choices button.sel{border-color:var(--ink)}
+.row{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:14px;z-index:60}
+.toast[hidden]{display:none}
+@media (max-width:520px){.day{min-height:64px;padding:4px}.tag{font-size:11px;padding:1px 4px}.wrap{padding:12px 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section id="vLogin" class="login card" hidden>
+    <h1>Grafik prośby 2027</h1>
+    <p class="note" style="margin:0 0 8px">Neurologia, odc. I</p>
+    <p>Zaloguj się adresem e-mail i hasłem, które otrzymałeś/aś od oddziałowego.</p>
+    <form id="fLogin">
+      <label for="lEmail">E-mail</label>
+      <input id="lEmail" type="email" autocomplete="username" required>
+      <label for="lPass">Hasło</label>
+      <input id="lPass" type="password" autocomplete="current-password" required>
+      <div class="err" id="lErr"></div>
+      <button class="btn primary" style="width:100%;margin-top:6px" type="submit">Zaloguj</button>
+    </form>
+  </section>
+
+  <section id="vApp" hidden>
+    <header class="top">
+      <h1>Grafik prośby 2027 <span style="font-weight:400;color:var(--muted);font-size:14px">· Neurologia, odc. I</span></h1>
+      <span class="who" id="who"></span>
+      <button class="btn small" id="bPass">Zmień hasło</button>
+      <button class="btn small" id="bOut">Wyloguj</button>
+    </header>
+
+    <div class="bar">
+      <button class="btn small" id="bPrev" aria-label="Poprzedni miesiąc">‹</button>
+      <select id="sMonth"></select>
+      <button class="btn small" id="bNext" aria-label="Następny miesiąc">›</button>
+      <span id="mStatus"></span>
+      <span style="flex:1"></span>
+      <span id="adminBar" hidden>
+        <button class="btn small" id="bToggle"></button>
+      </span>
+    </div>
+
+    <nav class="tabs" id="tabs" hidden>
+      <button data-t="moje" class="on">Moje prośby</button>
+      <button data-t="prosby">Prośby wszystkich</button>
+      <button data-t="grafik">Grafik</button>
+      <button data-t="konta">Konta</button>
+    </nav>
+
+    <div id="tMoje">
+      <p class="note" id="mojeNote">Kliknij dzień, aby wpisać prośbę. Twoje prośby widzisz tylko Ty i oddziałowy – inni pracownicy ich nie widzą.</p>
+      <div class="cal" id="cal"></div>
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <div id="tProsby" hidden>
+      <p class="note">Prośby wszystkich pracowników. Niebieska kropka = jest komentarz (najedź lub kliknij).</p>
+      <div class="bar">
+        <button class="btn small" id="bCsvP">Pobierz prośby (CSV)</button>
+      </div>
+      <div class="tblwrap"><table class="g" id="tblP"></table></div>
+    </div>
+
+    <div id="tGrafik" hidden>
+      <p class="note">Grafik edytujesz w arkuszu Google – tutaj jest jego kopia (odświeżana co ok. 5 min). Kropka = pracownik ma w tym dniu prośbę, która różni się od grafiku (najedź, aby zobaczyć). Czerwona ramka = Noc → Dzień/K, pomarańczowa = ponad 5 dni pracy z rzędu.</p>
+      <div class="bar">
+        <button class="btn small" id="bCsvG">Pobierz grafik (CSV)</button>
+      </div>
+      <div class="tblwrap"><table class="g" id="tblG"></table></div>
+    </div>
+
+    <div id="tKonta" hidden>
+      <div class="card" style="max-width:520px">
+        <h3 style="margin-top:0">Nowe hasło dla pracownika</h3>
+        <p class="note">Gdy ktoś zapomni hasła, nadaj mu nowe i przekaż osobiście.</p>
+        <label for="kEmp">Pracownik</label>
+        <select id="kEmp"></select>
+        <label for="kPass">Nowe hasło (min. 8 znaków)</label>
+        <input id="kPass" type="password" autocomplete="new-password">
+        <div class="row"><button class="btn primary" id="bReset">Ustaw hasło</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="shTitle">
+    <h3 id="shTitle"></h3>
+    <div class="note" id="shSub"></div>
+    <div class="choices" id="shChoices"></div>
+    <div id="shCmWrap">
+      <label for="shCm">Komentarz (opcjonalnie)</label>
+      <textarea id="shCm" rows="2" maxlength="300"></textarea>
+    </div>
+    <div class="row">
+      <button class="btn" id="shClear">Usuń</button>
+      <span style="flex:1"></span>
+      <button class="btn" id="shCancel">Anuluj</button>
+      <button class="btn primary" id="shSave">Zapisz</button>
+    </div>
+  </div>
+</div>
+
+<div class="sheet" id="pwSheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true">
+    <h3>Zmień hasło</h3>
+    <label for="pw1">Nowe hasło (min. 8 znaków)</label>
+    <input id="pw1" type="password" autocomplete="new-password">
+    <label for="pw2">Powtórz hasło</label>
+    <input id="pw2" type="password" autocomplete="new-password">
+    <div class="err" id="pwErr"></div>
+    <div class="row"><button class="btn" id="pwCancel">Anuluj</button><button class="btn primary" id="pwSave">Zapisz</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="supabase.js"></script><!-- @supabase/supabase-js 2.45.4 (UMD), kopia lokalna -->
+<script>
+"use strict";
+// Klucz publiczny (publishable) – bezpieczny do umieszczenia na stronie.
+// Dostęp do danych pilnują reguły RLS w bazie, nie ta strona.
+const SB_URL = "https://egcawtzhydvadzmhfldj.supabase.co";
+const SB_KEY = "sb_publishable_smKCj8aeeKuPBO8Ynj7wGA_lPPx0oXO";
+const sb = supabase.createClient(SB_URL, SB_KEY);
+
+const VALS = ["Dzień","Noc","K","Wolne","Urlop","Opieka"];
+const ABBR = {"Dzień":"D","Noc":"N","K":"K","Wolne":"W","Urlop":"U","Opieka":"O"};
+const MONTHS = ["Styczeń","Luty","Marzec","Kwiecień","Maj","Czerwiec","Lipiec","Sierpień","Wrzesień","Październik","Listopad","Grudzień"];
+const DOW = ["pon","wt","śr","czw","pt","sob","nd"];
+const HOL = {"2027-01-01":"Nowy Rok","2027-01-06":"Trzech Króli","2027-03-28":"Wielkanoc","2027-03-29":"Poniedziałek Wielkanocny","2027-05-01":"Święto Pracy","2027-05-03":"Święto Konstytucji 3 Maja","2027-05-16":"Zielone Świątki","2027-05-27":"Boże Ciało","2027-08-15":"Wniebowzięcie NMP","2027-11-01":"Wszystkich Świętych","2027-11-11":"Święto Niepodległości","2027-12-24":"Wigilia","2027-12-25":"Boże Narodzenie","2027-12-26":"Drugi dzień Świąt"};
+
+const S = { me:null, emps:[], month:0, months:{}, prosby:new Map(), grafik:new Map(), tab:"moje" };
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pad = n => String(n).padStart(2,"0");
+const iso = (m,d) => `2027-${pad(m+1)}-${pad(d)}`;
+const daysIn = m => new Date(2027, m+1, 0).getDate();
+const dow = (m,d) => (new Date(2027, m, d).getDay() + 6) % 7; // 0 = pon
+const key = (e,day) => e + "|" + day;
+const tag = v => v ? `<span class="tag v-${esc(v)}">${esc(ABBR[v]||v)}</span>` : "";
+
+function toast(msg){ const t=$("toast"); t.textContent=msg; t.hidden=false; clearTimeout(toast.h); toast.h=setTimeout(()=>t.hidden=true, 2600); }
+function prevDay(m){ const d=new Date(2027,m,0); return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+
+// ---------- logowanie ----------
+$("fLogin").addEventListener("submit", async e => {
+  e.preventDefault(); $("lErr").textContent = "";
+  const { error } = await sb.auth.signInWithPassword({ email: $("lEmail").value.trim().toLowerCase(), password: $("lPass").value });
+  if (error) { $("lErr").textContent = "Nieprawidłowy e-mail lub hasło."; return; }
+  start();
+});
+$("bOut").onclick = async () => { await sb.auth.signOut(); location.reload(); };
+
+$("bPass").onclick = () => { $("pw1").value=$("pw2").value=""; $("pwErr").textContent=""; $("pwSheet").hidden=false; $("pw1").focus(); };
+$("pwCancel").onclick = () => $("pwSheet").hidden = true;
+$("pwSave").onclick = async () => {
+  const a=$("pw1").value, b=$("pw2").value;
+  if (a.length < 8) return $("pwErr").textContent = "Hasło musi mieć min. 8 znaków.";
+  if (a !== b) return $("pwErr").textContent = "Hasła się różnią.";
+  const { error } = await sb.auth.updateUser({ password: a });
+  if (error) return $("pwErr").textContent = "Nie udało się: " + error.message;
+  $("pwSheet").hidden = true; toast("Hasło zmienione");
+};
+
+async function start(){
+  const { data:{ session } } = await sb.auth.getSession();
+  if (!session) { $("vLogin").hidden=false; $("vApp").hidden=true; return; }
+  const { data:emps, error } = await sb.from("pracownicy").select("id,nazwisko,etat,is_admin,user_id").order("id");
+  if (error) { toast("Błąd: " + error.message); return; }
+  S.emps = emps;
+  S.me = emps.find(e => e.user_id === session.user.id);
+  if (!S.me) { await sb.auth.signOut(); $("vLogin").hidden=false; $("lErr").textContent="To konto nie jest przypisane do żadnego pracownika."; return; }
+  $("vLogin").hidden = true; $("vApp").hidden = false;
+  $("who").textContent = S.me.nazwisko + (S.me.is_admin ? " · administrator" : "");
+  $("tabs").hidden = !S.me.is_admin; $("adminBar").hidden = !S.me.is_admin;
+  const sel = $("sMonth"); sel.innerHTML = MONTHS.map((n,i)=>`<option value="${i}">${n} 2027</option>`).join("");
+  const now = new Date(); S.month = now.getFullYear() === 2027 ? now.getMonth() : 0;
+  sel.value = S.month;
+  if (S.me.is_admin) $("kEmp").innerHTML = S.emps.map(e=>`<option value="${e.id}">${esc(e.nazwisko)}</option>`).join("");
+  $("legend").innerHTML = VALS.map(v => `${tag(v)} ${esc(v)}`).join(" &nbsp; ");
+  await load();
+}
+
+$("sMonth").onchange = e => { S.month = +e.target.value; load(); };
+$("bPrev").onclick = () => { if (S.month>0){ S.month--; $("sMonth").value=S.month; load(); } };
+$("bNext").onclick = () => { if (S.month<11){ S.month++; $("sMonth").value=S.month; load(); } };
+
+document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => {
+  S.tab = b.dataset.t;
+  document.querySelectorAll("#tabs button").forEach(x => x.classList.toggle("on", x===b));
+  render();
+});
+
+async function load(){
+  const m = S.month, from = iso(m,1), to = iso(m,daysIn(m));
+  const [mo, pr, gr] = await Promise.all([
+    sb.from("miesiace").select("miesiac,prosby_otwarte"),
+    sb.from("prosby").select("pracownik_id,dzien,wartosc,komentarz").gte("dzien", from).lte("dzien", to),
+    sb.from("grafik").select("pracownik_id,dzien,wartosc").gte("dzien", prevDay(m)).lte("dzien", to),
+  ]);
+  const err = mo.error || pr.error || gr.error;
+  if (err) { toast("Błąd wczytywania: " + err.message); return; }
+  S.months = Object.fromEntries(mo.data.map(r => [r.miesiac, r.prosby_otwarte]));
+  S.prosby = new Map(pr.data.map(r => [key(r.pracownik_id, r.dzien), r]));
+  S.grafik = new Map(gr.data.map(r => [key(r.pracownik_id, r.dzien), r.wartosc]));
+  render();
+}
+const isOpen = () => !!S.months[iso(S.month,1)];
+
+function render(){
+  const open = isOpen();
+  $("mStatus").innerHTML = open ? `<span class="pill open">Prośby otwarte</span>` : `<span class="pill closed">Prośby zamknięte</span>`;
+  $("bToggle").textContent = open ? "Zamknij prośby na ten miesiąc" : "Otwórz prośby na ten miesiąc";
+  const t = S.me.is_admin ? S.tab : "moje";
+  $("tMoje").hidden = t!=="moje"; $("tProsby").hidden = t!=="prosby"; $("tGrafik").hidden = t!=="grafik"; $("tKonta").hidden = t!=="konta";
+  if (t==="moje") renderCal();
+  if (t==="prosby") renderProsby();
+  if (t==="grafik") renderGrafik();
+}
+
+$("bToggle").onclick = async () => {
+  const { error } = await sb.from("miesiace").update({ prosby_otwarte: !isOpen() }).eq("miesiac", iso(S.month,1));
+  if (error) return toast("Błąd: " + error.message);
+  await load(); toast(isOpen() ? "Prośby otwarte" : "Prośby zamknięte – pracownicy nie mogą już nic zmieniać");
+};
+
+// ---------- kalendarz pracownika ----------
+function renderCal(){
+  const m = S.month, n = daysIn(m), me = S.me.id, canEdit = isOpen() || S.me.is_admin;
+  $("mojeNote").textContent = isOpen()
+    ? "Kliknij dzień, aby wpisać prośbę. Twoje prośby widzisz tylko Ty i oddziałowy – inni pracownicy ich nie widzą."
+    : "Prośby na ten miesiąc są już zamknięte – możesz je tylko podejrzeć.";
+  let h = DOW.map(d => `<div class="hd">${d}</div>`).join("");
+  for (let i=0;i<dow(m,1);i++) h += `<div class="empty"></div>`;
+  for (let d=1; d<=n; d++){
+    const day = iso(m,d), p = S.prosby.get(key(me,day)), g = S.grafik.get(key(me,day));
+    const cls = HOL[day] ? "hol" : (dow(m,d)>=5 ? "we" : "");
+    h += `<button class="day ${cls}" data-day="${day}" ${canEdit?"":"disabled"} title="${esc(HOL[day]||"")}">
+      <span class="num">${d}</span>
+      ${p && p.wartosc ? `<span><span class="lbl">prośba</span> ${tag(p.wartosc)}</span>` : ""}
+      ${p && p.komentarz ? `<span class="cm">${esc(p.komentarz)}</span>` : ""}
+      ${g ? `<span><span class="lbl">grafik</span> ${tag(g)}</span>` : ""}
+    </button>`;
+  }
+  $("cal").innerHTML = h;
+  $("cal").querySelectorAll(".day").forEach(b => b.onclick = () => openRequest(S.me.id, b.dataset.day));
+}
+
+// ---------- okno wyboru ----------
+let SH = null;
+function openSheet(opts){
+  SH = { ...opts, value: opts.value || null };
+  $("shTitle").textContent = opts.title; $("shSub").textContent = opts.sub || "";
+  $("shCmWrap").hidden = !opts.comment; $("shCm").value = opts.commentValue || "";
+  $("shChoices").innerHTML = VALS.map(v => `<button type="button" class="v-${v}${v===SH.value?" sel":""}" data-v="${v}">${v}</button>`).join("");
+  $("shChoices").querySelectorAll("button").forEach(b => b.onclick = () => {
+    SH.value = SH.value === b.dataset.v ? null : b.dataset.v;
+    $("shChoices").querySelectorAll("button").forEach(x => x.classList.toggle("sel", x.dataset.v===SH.value));
+  });
+  $("sheet").hidden = false;
+}
+const closeSheet = () => { $("sheet").hidden = true; SH = null; };
+$("shCancel").onclick = closeSheet;
+$("sheet").addEventListener("click", e => { if (e.target.id==="sheet") closeSheet(); });
+document.addEventListener("keydown", e => { if (e.key==="Escape"){ closeSheet(); $("pwSheet").hidden=true; } });
+$("shSave").onclick = async () => { const s=SH; closeSheet(); await s.save(s.value, $("shCm").value.trim()); };
+$("shClear").onclick = async () => { const s=SH; closeSheet(); await s.save(null, ""); };
+
+function fmtDay(day){ const [y,m,d]=day.split("-").map(Number); return `${d} ${["stycznia","lutego","marca","kwietnia","maja","czerwca","lipca","sierpnia","września","października","listopada","grudnia"][m-1]} (${DOW[dow(m-1,d)]})`; }
+
+function openRequest(empId, day){
+  const p = S.prosby.get(key(empId, day));
+  const emp = S.emps.find(e=>e.id===empId);
+  openSheet({
+    title: "Prośba – " + fmtDay(day),
+    sub: empId===S.me.id ? (HOL[day]||"") : emp.nazwisko,
+    value: p?.wartosc, comment: true, commentValue: p?.komentarz,
+    save: async (v, cm) => {
+      let r;
+      if (!v && !cm) r = await sb.from("prosby").delete().eq("pracownik_id", empId).eq("dzien", day);
+      else r = await sb.from("prosby").upsert({ pracownik_id: empId, dzien: day, wartosc: v, komentarz: cm || null, updated_at: new Date().toISOString() });
+      if (r.error) return toast(isOpen() ? "Błąd: " + r.error.message : "Prośby na ten miesiąc są zamknięte.");
+      toast(v || cm ? "Zapisano prośbę" : "Usunięto prośbę"); load();
+    }
+  });
+}
+
+// ---------- tabele administratora ----------
+function headRow(extra){
+  const m=S.month, n=daysIn(m);
+  let h = `<thead><tr><th class="name">Pracownik</th>`;
+  for (let d=1; d<=n; d++){ const day=iso(m,d); const c = HOL[day]?"hol":(dow(m,d)>=5?"we":""); h += `<th class="${c}" title="${esc(HOL[day]||"")}">${d}<br><span style="font-weight:400;color:var(--muted)">${DOW[dow(m,d)]}</span></th>`; }
+  return h + (extra||"") + `</tr></thead>`;
+}
+
+function renderProsby(){
+  const m=S.month, n=daysIn(m);
+  let h = headRow(`<th>Liczba</th>`) + "<tbody>";
+  for (const e of S.emps){
+    let cnt=0;
+    h += `<tr><td class="name">${esc(e.nazwisko)}</td>`;
+    for (let d=1; d<=n; d++){
+      const day=iso(m,d), p=S.prosby.get(key(e.id,day)), c=HOL[day]?"hol":(dow(m,d)>=5?"we":"");
+      if (p) cnt++;
+      h += `<td class="c ${c}" data-e="${e.id}" data-day="${day}" title="${esc(p?.komentarz||"")}">${tag(p?.wartosc)}${p?.komentarz?'<span class="dot"></span>':""}${p&&!p.wartosc?"💬":""}</td>`;
+    }
+    h += `<td class="sum">${cnt}</td></tr>`;
+  }
+  $("tblP").innerHTML = h + "</tbody>";
+  $("tblP").querySelectorAll("td.c").forEach(td => td.onclick = () => openRequest(+td.dataset.e, td.dataset.day));
+}
+
+function renderGrafik(){
+  const m=S.month, n=daysIn(m), G=S.grafik;
+  let h = headRow(`<th>D</th><th>N</th><th>K</th><th>W</th><th>U</th><th>O</th><th>Godz. D+N</th>`) + "<tbody>";
+  const dayCnt = Array.from({length:n+1},()=>({D:0,N:0,K:0,err:0}));
+  for (const e of S.emps){
+    const c = {Dzień:0,Noc:0,K:0,Wolne:0,Urlop:0,Opieka:0};
+    let run = 0;
+    h += `<tr><td class="name">${esc(e.nazwisko)} <span style="color:var(--muted)">${e.etat<1?"(½)":""}</span></td>`;
+    for (let d=1; d<=n; d++){
+      const day=iso(m,d), v=G.get(key(e.id,day)), p=S.prosby.get(key(e.id,day));
+      const prev = G.get(key(e.id, d===1 ? prevDay(m) : iso(m,d-1)));
+      let cls = HOL[day]?"hol":(dow(m,d)>=5?"we":"");
+      if (v) c[v]++;
+      if (v==="Dzień") dayCnt[d].D++; if (v==="Noc") dayCnt[d].N++; if (v==="K") dayCnt[d].K++;
+      run = (v==="Dzień"||v==="Noc"||v==="K") ? run+1 : 0;
+      if (prev==="Noc" && (v==="Dzień"||v==="K")) { cls+=" err"; dayCnt[d].err++; }
+      else if (run>5) cls+=" warn";
+      const diff = p && p.wartosc && p.wartosc!==v;
+      const tip = p ? `Prośba: ${p.wartosc||"—"}${p.komentarz?" · "+p.komentarz:""}` : "";
+      h += `<td class="c ${cls}" data-e="${e.id}" data-day="${day}" title="${esc(tip)}">${tag(v)}${diff?'<span class="dot"></span>':""}</td>`;
+    }
+    h += `<td class="sum">${c.Dzień}</td><td class="sum">${c.Noc}</td><td class="sum">${c.K}</td><td class="sum">${c.Wolne}</td><td class="sum">${c.Urlop}</td><td class="sum">${c.Opieka}</td><td class="sum">${12*(c.Dzień+c.Noc)} h</td></tr>`;
+  }
+  // wiersze obsady
+  let rD = `<tr class="foot"><td class="name">Obsada – dzień (4 lub 3+K)</td>`, rN = `<tr class="foot"><td class="name">Obsada – noc (2–3)</td>`, rE = `<tr class="foot"><td class="name">Noc → Dzień (ma być 0)</td>`;
+  for (let d=1; d<=n; d++){
+    const x=dayCnt[d], dOk = x.D===4 || (x.D===3 && x.K===1), nOk = x.N===2 || x.N===3;
+    rD += `<td class="${dOk?"okc":"badc"}">${x.D===3&&x.K===1?"3+K":x.D}</td>`;
+    rN += `<td class="${nOk?"okc":"badc"}">${x.N}</td>`;
+    rE += `<td class="${x.err?"badc":"okc"}">${x.err}</td>`;
+  }
+  const pad7 = `<td colspan="7"></td></tr>`;
+  $("tblG").innerHTML = h + rD + pad7 + rN + pad7 + rE + pad7 + "</tbody>";
+}
+
+
+function csv(rows, name){
+  const txt = "﻿" + rows.map(r => r.map(c => `"${String(c??"").replace(/"/g,'""')}"`).join(";")).join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([txt], {type:"text/csv;charset=utf-8"}));
+  a.download = name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+}
+function exportMonth(src, label){
+  const m=S.month, n=daysIn(m), head=["Pracownik"];
+  for (let d=1; d<=n; d++) head.push(`${d} ${DOW[dow(m,d)]}`);
+  const rows=[head];
+  for (const e of S.emps){
+    const r=[e.nazwisko];
+    for (let d=1; d<=n; d++){ const day=iso(m,d); r.push(src(e.id,day)); }
+    rows.push(r);
+  }
+  csv(rows, `${label}_${MONTHS[m]}_2027.csv`);
+}
+$("bCsvG").onclick = () => exportMonth((e,day)=>S.grafik.get(key(e,day))||"", "Grafik");
+$("bCsvP").onclick = () => exportMonth((e,day)=>{ const p=S.prosby.get(key(e,day)); return p ? [p.wartosc,p.komentarz].filter(Boolean).join(" – ") : ""; }, "Prosby");
+
+$("bReset").onclick = async () => {
+  const id=+$("kEmp").value, pw=$("kPass").value;
+  if (pw.length<8) return toast("Hasło musi mieć min. 8 znaków");
+  const { error } = await sb.rpc("admin_resetuj_haslo", { p_pracownik:id, p_haslo:pw });
+  if (error) return toast("Błąd: " + error.message);
+  $("kPass").value=""; toast("Hasło ustawione – przekaż je pracownikowi");
+};
+
+start();
+</script>
+</body>
+</html>
