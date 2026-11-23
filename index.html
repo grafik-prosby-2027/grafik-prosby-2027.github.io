@@ -112,7 +112,7 @@ table.g td.okc{color:var(--ok)} table.g td.badc{color:var(--bad)}
   <section id="vLogin" class="login card" hidden>
     <h1>Grafik prośby 2027</h1>
     <p class="note" style="margin:0 0 8px">Neurologia, odc. I</p>
-    <p>Zaloguj się adresem e-mail i hasłem, które otrzymałeś/aś od oddziałowego.</p>
+    <p>Zaloguj się adresem e-mail i hasłem, które otrzymałeś/aś od osoby układającej grafik.</p>
     <form id="fLogin">
       <label for="lEmail">E-mail</label>
       <input id="lEmail" type="email" autocomplete="username" required>
@@ -150,7 +150,7 @@ table.g td.okc{color:var(--ok)} table.g td.badc{color:var(--bad)}
     </nav>
 
     <div id="tMoje">
-      <p class="note" id="mojeNote">Kliknij dzień, aby wpisać prośbę. Twoje prośby widzisz tylko Ty i oddziałowy – inni pracownicy ich nie widzą.</p>
+      <p class="note" id="mojeNote">Kliknij dzień, aby wpisać prośbę. Twoje prośby widzisz tylko Ty i osoba układająca grafik – inni pracownicy ich nie widzą.</p>
       <div class="cal" id="cal"></div>
       <div class="legend" id="legend"></div>
     </div>
@@ -331,7 +331,7 @@ $("bToggle").onclick = async () => {
 function renderCal(){
   const m = S.month, n = daysIn(m), me = S.me.id, canEdit = isOpen() || S.me.is_admin;
   $("mojeNote").textContent = isOpen()
-    ? "Kliknij dzień, aby wpisać prośbę. Twoje prośby widzisz tylko Ty i oddziałowy – inni pracownicy ich nie widzą."
+    ? "Kliknij dzień, aby wpisać prośbę. Twoje prośby widzisz tylko Ty i osoba układająca grafik – inni pracownicy ich nie widzą."
     : "Prośby na ten miesiąc są już zamknięte – możesz je tylko podejrzeć.";
   let h = DOW.map(d => `<div class="hd">${d}</div>`).join("");
   for (let i=0;i<dow(m,1);i++) h += `<div class="empty"></div>`;

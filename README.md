@@ -1,7 +1,7 @@
 # Grafik – Neurologia, odc. I
 
 Prośby do grafiku na 2027 r. Każdy pracownik loguje się własnym kontem i widzi **tylko swoje**
-prośby i swoje zmiany w grafiku. Administrator (oddziałowy) widzi prośby wszystkich i układa grafik.
+prośby i swoje zmiany w grafiku. Administrator (osoba układająca grafik) widzi prośby wszystkich i układa grafik.
 
 - `index.html` – aplikacja (strona statyczna, działa na GitHub Pages).
 - `supabase.js` – lokalna kopia `@supabase/supabase-js` 2.45.4 (UMD).
